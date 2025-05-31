@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TradeDeck - Your Digital Marketplace</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8fafc; /* Light gray background */
+        }
+        .btn-primary {
+            @apply bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-8 rounded-xl shadow-md transition duration-300;
+        }
+        .btn-secondary {
+            @apply bg-white border border-blue-600 text-blue-600 hover:bg-blue-50 hover:text-blue-700 font-semibold py-3 px-8 rounded-xl shadow-md transition duration-300;
+        }
+    </style>
+</head>
+<body class="text-gray-800">
+
+    <header class="bg-white shadow-sm py-4">
+        <div class="container mx-auto flex justify-between items-center px-6">
+            <h1 class="text-3xl font-extrabold text-blue-600">TradeDeck</h1>
+            <nav class="space-x-6">
+                <a href="#" class="text-gray-700 hover:text-blue-600 font-medium transition duration-200">Home</a>
+                <a href="#features" class="text-gray-700 hover:text-blue-600 font-medium transition duration-200">Features</a>
+                <a href="#how-it-works" class="text-gray-700 hover:text-blue-600 font-medium transition duration-200">How It Works</a>
+                <a href="#contact" class="text-gray-700 hover:text-blue-600 font-medium transition duration-200">Contact</a>
+                <a href="login.html" class="btn-primary">Sign In</a> </nav>
+        </div>
+    </header>
+
+    <section class="bg-gradient-to-r from-blue-500 to-blue-700 text-white py-20 md:py-32 text-center">
+        <div class="container mx-auto px-6">
+            <h2 class="text-5xl md:text-6xl font-extrabold leading-tight mb-6">
+                Unleash Your Digital Creativity. <br class="hidden md:block"> Sell with Ease.
+            </h2>
+            <p class="text-xl md:text-2xl mb-10 max-w-3xl mx-auto opacity-90">
+                TradeDeck is your premier marketplace for buying and selling digital products. From eBooks to software, templates to art, empower your passion.
+            </p>
+            <div class="flex justify-center space-x-4">
+                <a href="login.html" class="btn-secondary !bg-white !text-blue-600 hover:!bg-blue-100">Start Selling Today</a>
+                <a href="https://933-ship-it.github.io/TradeDeck/" class="btn-primary">Explore Products</a>
+            </div>
+        </div>
+    </section>
+
+    <section id="features" class="py-16 bg-white">
+        <div class="container mx-auto px-6">
+            <h3 class="text-4xl font-bold text-center text-gray-900 mb-12">Why Choose TradeDeck?</h3>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
+                <div class="text-center p-8 rounded-xl shadow-lg bg-blue-50">
+                    <div class="text-blue-600 text-5xl mb-6">🚀</div>
+                    <h4 class="text-2xl font-semibold mb-3 text-gray-900">Instant Global Reach</h4>
+                    <p class="text-gray-700">Connect with buyers worldwide and start selling your digital goods in minutes.</p>
+                </div>
+                <div class="text-center p-8 rounded-xl shadow-lg bg-blue-50">
+                    <div class="text-blue-600 text-5xl mb-6">🔒</div>
+                    <h4 class="text-2xl font-semibold mb-3 text-gray-900">Secure & Seamless Payments</h4>
+                    <p class="text-gray-700">Enjoy secure transactions with direct PayPal integration for easy payouts.</p>
+                </div>
+                <div class="text-center p-8 rounded-xl shadow-lg bg-blue-50">
+                    <div class="text-blue-600 text-5xl mb-6">🎨</div>
+                    <h4 class="text-2xl font-semibold mb-3 text-gray-900">Showcase Your Talent</h4>
+                    <p class="text-gray-700">Beautiful product pages designed to highlight your creations and attract customers.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="how-it-works" class="py-16 bg-gray-100">
+        <div class="container mx-auto px-6">
+            <h3 class="text-4xl font-bold text-center text-gray-900 mb-12">How It Works</h3>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
+                <div class="flex flex-col items-center text-center">
+                    <div class="bg-blue-600 text-white rounded-full w-16 h-16 flex items-center justify-center text-3xl font-bold mb-6 shadow-md">1</div>
+                    <h4 class="text-xl font-semibold mb-3 text-gray-900">Create Your Account</h4>
+                    <p class="text-gray-700">Sign up in seconds using your Google account.</p>
+                </div>
+                <div class="flex flex-col items-center text-center">
+                    <div class="bg-blue-600 text-white rounded-full w-16 h-16 flex items-center justify-center text-3xl font-bold mb-6 shadow-md">2</div>
+                    <h4 class="text-xl font-semibold mb-3 text-gray-900">List Your Product</h4>
+                    <p class="text-gray-700">Upload your digital files, set your price, and add captivating descriptions.</p>
+                </div>
+                <div class="flex flex-col items-center text-center">
+                    <div class="bg-blue-600 text-white rounded-full w-16 h-16 flex items-center justify-center text-3xl font-bold mb-6 shadow-md">3</div>
+                    <h4 class="text-xl font-semibold mb-3 text-gray-900">Start Earning</h4>
+                    <p class="text-gray-700">Reach a global audience and get paid directly to your PayPal.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="bg-blue-600 text-white py-16 text-center">
+        <div class="container mx-auto px-6">
+            <h3 class="text-4xl font-bold mb-6">Ready to Transform Your Digital Assets?</h3>
+            <p class="text-xl mb-8 opacity-90">Join TradeDeck today and turn your creations into income.</p>
+            <a href="login.html" class="btn-secondary !bg-white !text-blue-600 hover:!bg-blue-100">Get Started Now</a>
+        </div>
+    </section>
+
+    <footer id="contact" class="bg-gray-800 text-gray-300 py-10">
+        <div class="container mx-auto px-6 text-center">
+            <p>&copy; 2025 TradeDeck. All rights reserved.</p>
+            <div class="flex justify-center space-x-4 mt-4">
+                <a href="#" class="hover:text-blue-400">Privacy Policy</a>
+                <a href="#" class="hover:text-blue-400">Terms of Service</a>
+                <a href="#" class="hover:text-blue-400">Support</a>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>
