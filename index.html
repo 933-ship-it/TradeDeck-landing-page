@@ -11,6 +11,13 @@
   <!-- Firebase App (the core Firebase SDK) -->
   <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
+  <!-- EmailJS integration -->
+  <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
+  <script>
+    (function() {
+      emailjs.init('fmwYD8DAojsvufds2');
+    })();
+  </script>
   <style>
     body { font-family: 'Inter', sans-serif; }
     .fade-in { animation: fadeIn 1s cubic-bezier(0.23, 1, 0.32, 1); }
