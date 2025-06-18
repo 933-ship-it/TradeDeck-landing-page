@@ -3,34 +3,20 @@
 <head>
   <meta charset="UTF-8" />
   <title>TradeDeck – Sign Up</title>
-  <link rel="icon" type="image/png" href="assets/logo.png" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="description" content="TradeDeck – Buy and sell digital products securely. Sign in with Google to access the marketplace." />
+  <link rel="icon" type="image/png" href="assets/logo.png" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet" />
   <script src="https://cdn.tailwindcss.com"></script>
-  <!-- Firebase App (the core Firebase SDK) -->
-  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
-  <!-- Cloudinary widget (if you use it on this page, otherwise remove) -->
-  <!-- <script src="https://widget.cloudinary.com/v2.0/global/all.js"></script> -->
-  <!-- EmailJS integration (official CDN) -->
-  <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
-  <script>
-    // Make sure EmailJS is loaded before initializing
-    document.addEventListener('DOMContentLoaded', function() {
-      if (window.emailjs) {
-        emailjs.init('fmwYD8DAojsvufds2');
-      } else {
-        console.error("EmailJS failed to load.");
-      }
-    });
-  </script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js" defer></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js" defer></script>
   <style>
     body { font-family: 'Inter', sans-serif; }
     .fade-in { animation: fadeIn 1s cubic-bezier(0.23, 1, 0.32, 1); }
     @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(32px);}
-      to { opacity: 1; transform: translateY(0);}
+      from { opacity: 0; transform: translateY(32px); }
+      to { opacity: 1; transform: translateY(0); }
     }
     .gradient-bg {
       background: linear-gradient(120deg, #2563eb 0%, #60a5fa 100%);
@@ -39,118 +25,114 @@
       position: absolute;
       top: 0; left: 0; width: 100vw; height: 100vh;
       background: radial-gradient(ellipse at 40% 30%, #60a5fa33 0%, #2563eb11 58%, transparent 100%);
-      z-index: 0;
-      filter: blur(32px);
-      pointer-events: none;
+      z-index: 0; filter: blur(32px); pointer-events: none;
     }
     .card-hover:hover {
-      box-shadow: 0 10px 24px 0 rgba(59,130,246,0.10), 0 1.5px 8px 0 rgba(59,130,246,0.07);
+      box-shadow: 0 10px 24px rgba(59,130,246,0.1), 0 1.5px 8px rgba(59,130,246,0.07);
       transform: translateY(-5px) scale(1.025);
-      transition: all 0.2s;
+      transition: all 0.2s ease-in-out;
     }
-    .btn-shadow { box-shadow: 0 4px 32px 0 rgba(51, 102, 255, 0.16);}
-    ::-webkit-scrollbar { width: 0 !important; }
-    html, body { height: 100%; }
+    .btn-shadow {
+      box-shadow: 0 4px 32px rgba(51, 102, 255, 0.16);
+    }
+    ::-webkit-scrollbar { width: 0; }
+    html, body { height: 100%; margin: 0; padding: 0; }
   </style>
 </head>
-<body class="gradient-bg min-h-screen min-w-full flex flex-col items-center justify-center relative overflow-x-hidden">
+<body class="gradient-bg flex flex-col items-center justify-center relative overflow-x-hidden min-h-screen">
 
   <div class="hero-blur"></div>
 
-  <!-- Main Fullscreen Hero Content -->
-  <main class="flex flex-col flex-1 items-center justify-center w-full h-screen relative z-10 fade-in">
-    <!-- Logo + TradeDeck Wordmark -->
-    <div class="select-none text-center mb-6 mt-0 flex flex-col items-center justify-center">
-      <div class="flex items-center justify-center gap-4">
-        <img src="https://i.ibb.co/xqX4JDjN/logo.png" alt="TradeDeck Logo" class="h-20 w-20 md:h-24 md:w-24 object-contain" draggable="false" style="user-select:none;">
-        <span class="text-7xl md:text-8xl font-extrabold tracking-tight text-white drop-shadow-2xl" style="letter-spacing:-2px;text-shadow:0 6px 32px #1e40af66,0 1px 0 #fff5;">Trade<span class="text-blue-300">Deck</span></span>
+  <main class="relative z-10 flex flex-col items-center justify-center w-full h-screen fade-in">
+    <div class="mb-6 text-center select-none">
+      <div class="flex flex-col items-center justify-center gap-4">
+        <img src="https://i.ibb.co/xqX4JDjN/logo.png" alt="TradeDeck Logo" class="h-20 w-20 md:h-24 md:w-24 object-contain" draggable="false" />
+        <h1 class="text-7xl md:text-8xl font-extrabold tracking-tight text-white drop-shadow-2xl" style="letter-spacing:-2px;">
+          Trade<span class="text-blue-300">Deck</span>
+        </h1>
       </div>
     </div>
-    <div class="w-full max-w-2xl mx-auto text-center">
+    <div class="w-full max-w-2xl px-4 mx-auto text-center">
       <p class="text-2xl md:text-3xl text-blue-50 font-semibold mb-8" style="text-shadow:0 2px 8px #1e40af55;">
-        A Trustworthy SCHOOL platform for <span class="text-white font-bold">buying</span> and <span class="text-white font-bold">selling</span> digital products.
+        A trustworthy platform for <span class="text-white font-bold">buying</span> and <span class="text-white font-bold">selling</span> digital products.
       </p>
       <button
         id="heroGoogleSignInBtn"
-        class="bg-white hover:bg-blue-50 text-blue-700 hover:text-blue-900 font-bold px-10 py-4 rounded-2xl text-xl md:text-2xl btn-shadow shadow-lg transition focus:outline-none focus:ring-4 focus:ring-blue-200"
-        style="box-shadow:0 6px 32px #2563eb44;"
+        class="bg-white hover:bg-blue-50 text-blue-700 hover:text-blue-900 font-bold px-10 py-4 rounded-2xl text-xl md:text-2xl btn-shadow transition focus:outline-none focus:ring-4 focus:ring-blue-200"
+        aria-label="Sign up with Google"
       >
         Sign Up Today
       </button>
       <div id="authStatus" class="text-blue-100 mt-6 text-lg min-h-[28px]"></div>
     </div>
-    <!-- Features (floating at bottom of screen for a modern landing style) -->
-    <div class="absolute bottom-0 left-0 w-full pb-10 px-4 md:px-0 flex justify-center pointer-events-none z-20">
+    <section class="absolute bottom-0 left-0 w-full pb-10 px-4 flex justify-center pointer-events-none z-20">
       <div class="flex flex-col md:flex-row items-center justify-center gap-6 md:gap-16 w-full max-w-4xl">
-        <div class="flex flex-row items-center gap-3 pointer-events-auto card-hover px-4 py-2 bg-white/10 rounded-2xl shadow">
-          <span class="text-3xl md:text-4xl">📁</span>
+        <div class="flex items-center gap-3 card-hover px-4 py-2 bg-white/10 rounded-2xl shadow pointer-events-auto">
+          <span class="text-3xl md:text-4xl" role="img" aria-label="Upload">📁</span>
           <span class="text-blue-50 font-semibold text-lg md:text-xl">Upload & List</span>
         </div>
-        <div class="flex flex-row items-center gap-3 pointer-events-auto card-hover px-4 py-2 bg-white/10 rounded-2xl shadow">
-          <span class="text-3xl md:text-4xl">💸</span>
+        <div class="flex items-center gap-3 card-hover px-4 py-2 bg-white/10 rounded-2xl shadow pointer-events-auto">
+          <span class="text-3xl md:text-4xl" role="img" aria-label="Checkout">💸</span>
           <span class="text-blue-50 font-semibold text-lg md:text-xl">Instant Checkout</span>
         </div>
-        <div class="flex flex-row items-center gap-3 pointer-events-auto card-hover px-4 py-2 bg-white/10 rounded-2xl shadow">
-          <span class="text-3xl md:text-4xl">🔒</span>
+        <div class="flex items-center gap-3 card-hover px-4 py-2 bg-white/10 rounded-2xl shadow pointer-events-auto">
+          <span class="text-3xl md:text-4xl" role="img" aria-label="Secure">🔒</span>
           <span class="text-blue-50 font-semibold text-lg md:text-xl">Protected Access</span>
         </div>
       </div>
-    </div>
+    </section>
   </main>
 
-  <!-- Footer -->
   <footer class="w-full text-center text-blue-100 font-medium absolute bottom-0 pb-3 z-30 select-none" style="text-shadow:0 1px 6px #1e40af44;">
     &copy; <span id="year"></span> TradeDeck. All rights reserved.
   </footer>
 
   <script>
-    const firebaseConfig = {
-      apiKey: "AIzaSyA0RFkuXJjh7X43R6wWdQKrXtdUwVJ-4js",
-      authDomain: "tradedeck-82bbb.firebaseapp.com",
-      projectId: "tradedeck-82bbb",
-      appId: "1:755235931546:web:7e35364b0157cd7fc2a623",
-      measurementId: "G-4RXR7V9NCW"
-    };
-    firebase.initializeApp(firebaseConfig);
-    const auth = firebase.auth();
+    document.addEventListener('DOMContentLoaded', () => {
+      const firebaseConfig = {
+        apiKey: "AIzaSyA0RFkuXJjh7X43R6wWdQKrXtdUwVJ-4js",
+        authDomain: "tradedeck-82bbb.firebaseapp.com",
+        projectId: "tradedeck-82bbb",
+        appId: "1:755235931546:web:7e35364b0157cd7fc2a623",
+        measurementId: "G-4RXR7V9NCW"
+      };
 
-    // Elements
-    const heroGoogleSignInBtn = document.getElementById('heroGoogleSignInBtn');
-    const authStatus = document.getElementById('authStatus');
-    const HOME_URL = "https://933-ship-it.github.io/TradeDeck.com/";
+      firebase.initializeApp(firebaseConfig);
+      const auth = firebase.auth();
 
-    function redirectToHome() {
-      window.location.href = HOME_URL;
-    }
+      const signInBtn = document.getElementById('heroGoogleSignInBtn');
+      const authStatus = document.getElementById('authStatus');
+      const HOME_URL = "https://933-ship-it.github.io/TradeDeck.com/";
 
-    async function signInWithGoogle() {
-      const provider = new firebase.auth.GoogleAuthProvider();
-      try {
-        await auth.signInWithPopup(provider);
-        authStatus.textContent = "Sign-in successful! Redirecting…";
-        setTimeout(redirectToHome, 900);
-      } catch (error) {
-        authStatus.textContent = "Authentication failed. Please try again.";
-      }
-    }
+      signInBtn.addEventListener('click', async () => {
+        const provider = new firebase.auth.GoogleAuthProvider();
+        try {
+          await auth.signInWithPopup(provider);
+          authStatus.textContent = "Sign-in successful! Redirecting…";
+          setTimeout(() => window.location.href = HOME_URL, 900);
+        } catch (error) {
+          console.error(error);
+          authStatus.textContent = "Authentication failed. Please try again.";
+        }
+      });
 
-    heroGoogleSignInBtn.onclick = signInWithGoogle;
+      auth.signOut();
 
-    // Always sign out on landing page load to enforce sign-in on every session
-    auth.signOut();
+      auth.onAuthStateChanged(user => {
+        if (user) {
+          authStatus.textContent = `Welcome, ${user.displayName}! Redirecting…`;
+          setTimeout(() => window.location.href = HOME_URL, 1200);
+        } else {
+          authStatus.textContent = "";
+        }
+      });
 
-    // Auth state logic
-    auth.onAuthStateChanged(user => {
-      if (user) {
-        authStatus.textContent = `Welcome, ${user.displayName}! Redirecting…`;
-        setTimeout(redirectToHome, 1200);
-      } else {
-        authStatus.textContent = "";
+      document.getElementById('year').textContent = new Date().getFullYear();
+
+      if (window.emailjs) {
+        emailjs.init('fmwYD8DAojsvufds2');
       }
     });
-
-    // Footer year
-    document.getElementById('year').textContent = new Date().getFullYear();
   </script>
 </body>
 </html>
