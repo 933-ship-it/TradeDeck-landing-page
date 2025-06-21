@@ -136,8 +136,15 @@
 
     heroGoogleSignInBtn.onclick = signInWithGoogle;
 
-    // Always sign out on landing page load to enforce sign-in on every session
-    auth.signOut();
+    auth.onAuthStateChanged((user) => {
+  if (user) {
+    authStatus.textContent = `Welcome, ${user.displayName}! Redirecting…`;
+    setTimeout(() => window.location.href = HOME_URL, 1200);
+  } else {
+    authStatus.textContent = "";
+    // no need to call auth.signOut() — they're already signed out
+  }
+});
 
     // Auth state logic
     auth.onAuthStateChanged(user => {
