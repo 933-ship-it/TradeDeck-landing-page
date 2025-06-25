@@ -2,18 +2,19 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8" />
-    <title>TradeDeck – Sign Up</title>
+    <title>TradeDeck – Digital Marketplace</title>
     <link rel="icon" type="image/png" href="assets/logo.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="description" content="TradeDeck – Buy and sell digital products securely. Sign in with Google to access the marketplace." />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet" />
+    <meta name="description" content="TradeDeck – Buy and sell digital products securely. Join today to explore the marketplace." />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
     <script src="https://cdn.tailwindcss.com"></script>
 
-    <!-- Firebase v9+ Modular SDK Imports -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha512-Fo3rlalDLuLwW1zH0+LwzQO/YlFpW4lS8x1pI/6+A4m4I4y6E5c6A1aV/j+G3p5+pM5y5+v+Q5+w5+Z5+x5+C5+z5+v5+Q==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-app.js";
         import { getAuth, GoogleAuthProvider, signInWithPopup, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-auth.js";
-        import "https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"; // EmailJS import for modular
+        import "https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js";
 
         // Firebase Config (your existing config)
         const firebaseConfig = {
@@ -27,10 +28,9 @@
         // Initialize Firebase
         const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
-        const provider = new GoogleAuthProvider(); // Initialize Google Auth Provider
+        const provider = new GoogleAuthProvider();
 
         // Initialize EmailJS
-        // Ensure EmailJS is loaded before initializing
         document.addEventListener('DOMContentLoaded', function() {
             if (window.emailjs) {
                 emailjs.init('fmwYD8DAojsvufds2');
@@ -42,37 +42,47 @@
         // Elements
         const heroGoogleSignInBtn = document.getElementById('heroGoogleSignInBtn');
         const authStatus = document.getElementById('authStatus');
-        const HOME_URL = "https://933-ship-it.github.io/TradeDeck/";
+        const HOME_URL = "https://933-ship-it.github.io/TradeDeck/"; 
 
         function redirectToHome() {
             window.location.href = HOME_URL;
         }
 
         async function signInWithGoogle() {
+            heroGoogleSignInBtn.disabled = true;
+            heroGoogleSignInBtn.textContent = 'Signing in...';
+            authStatus.textContent = "Initiating sign-in with Google...";
             try {
-                await signInWithPopup(auth, provider); // Use modular signInWithPopup
-                authStatus.textContent = "Sign-in successful! Redirecting…";
-                setTimeout(redirectToHome, 900);
+                await signInWithPopup(auth, provider);
+                authStatus.textContent = "Sign-in successful! Redirecting to TradeDeck...";
+                setTimeout(redirectToHome, 1200);
             } catch (error) {
                 console.error("Authentication failed:", error);
-                authStatus.textContent = `Authentication failed: ${error.message}. Please try again.`;
+                authStatus.textContent = `Sign-in failed. Please try again. ${error.message.includes('auth/popup-closed-by-user') ? '(Popup closed)' : ''}`;
+                heroGoogleSignInBtn.disabled = false;
+                heroGoogleSignInBtn.textContent = 'Sign Up Today';
             }
         }
 
         heroGoogleSignInBtn.onclick = signInWithGoogle;
 
-        // Listen for auth state changes and redirect if already signed in
+        // Listen for auth state changes but DO NOT automatically redirect.
         onAuthStateChanged(auth, (user) => {
             if (user) {
-                authStatus.textContent = `Welcome, ${user.displayName}! Redirecting…`;
-                setTimeout(redirectToHome, 1200);
+                authStatus.innerHTML = `<p class="text-blue-200">Welcome back, <strong class="font-bold">${user.displayName || user.email}</strong>! Click "Sign Up Today" to enter.</p>`;
+                heroGoogleSignInBtn.textContent = 'Enter TradeDeck';
+                heroGoogleSignInBtn.disabled = false;
             } else {
-                authStatus.textContent = "";
+                authStatus.textContent = "Click 'Sign Up Today' to get started.";
+                heroGoogleSignInBtn.textContent = 'Sign Up Today';
+                heroGoogleSignInBtn.disabled = false;
             }
         });
 
         // Footer year
-        document.getElementById('year').textContent = new Date().getFullYear();
+        document.addEventListener('DOMContentLoaded', () => {
+            document.getElementById('year').textContent = new Date().getFullYear();
+        });
     </script>
 
     <style>
@@ -82,75 +92,186 @@
             from { opacity: 0; transform: translateY(32px);}
             to { opacity: 1; transform: translateY(0);}
         }
-        .gradient-bg {
-            background: linear-gradient(120deg, #2563eb 0%, #60a5fa 100%);
+
+        /* --- Color Palette Matching Main App (based on image_107558.png) --- */
+        /* Dark Blue background, similar to sidebar/main content of app */
+        .app-bg-dark { background-color: #1a202c; } /* Roughly matches the background in image_107558.png */
+        .app-dark-blue-800 { background-color: #2d3748; } /* Similar to main content panels */
+        .app-text-gray-100 { color: #f7fafc; }
+        .app-text-blue-600 { color: #4299e1; } /* Similar to active tab/highlights */
+        .app-text-gray-400 { color: #a0aec0; } /* For secondary text */
+
+        /* Override existing styles to match the app's palette */
+        body.landing-page-bg {
+            background-color: #1a202c; /* Main app background */
+            color: #f7fafc; /* Default text color */
         }
         .hero-blur {
-            position: absolute;
-            top: 0; left: 0; width: 100vw; height: 100vh;
-            background: radial-gradient(ellipse at 40% 30%, #60a5fa33 0%, #2563eb11 58%, transparent 100%);
-            z-index: 0;
-            filter: blur(32px);
-            pointer-events: none;
+            /* Adjusted for a darker theme, more subtle */
+            background: radial-gradient(ellipse at 40% 30%, rgba(66, 153, 225, 0.15) 0%, rgba(45, 55, 72, 0.05) 58%, transparent 100%);
+            filter: blur(60px); /* More pronounced blur */
         }
-        .card-hover:hover {
-            box-shadow: 0 10px 24px 0 rgba(59,130,246,0.10), 0 1.5px 8px 0 rgba(59,130,246,0.07);
-            transform: translateY(-5px) scale(1.025);
-            transition: all 0.2s;
+        .btn-primary { /* Style for the main CTA button */
+            background-color: #4299e1; /* app-text-blue-600 */
+            color: #ffffff;
+            font-weight: 700;
+            padding: 1rem 2.5rem; /* py-4 px-10 */
+            border-radius: 1.5rem; /* rounded-2xl */
+            transition: all 0.2s ease-in-out;
+            box-shadow: 0 8px 30px rgba(66, 153, 225, 0.25);
         }
-        .btn-shadow { box-shadow: 0 4px 32px 0 rgba(51, 102, 255, 0.16);}
+        .btn-primary:hover {
+            background-color: #3182ce; /* Darker blue on hover */
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 12px 40px rgba(66, 153, 225, 0.35);
+        }
+
+        .card-feature { /* Style for the feature cards */
+            background-color: rgba(45, 55, 72, 0.7); /* app-dark-blue-800 with transparency */
+            backdrop-filter: blur(8px); /* Subtle blur for modern look */
+            border: 1px solid rgba(66, 153, 225, 0.2); /* Light blue border */
+            border-radius: 1.5rem; /* rounded-3xl */
+            transition: all 0.2s cubic-bezier(0.23, 1, 0.32, 1);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        .card-feature:hover {
+            transform: translateY(-10px) scale(1.05); /* More lift on hover */
+            box-shadow: 0 15px 35px rgba(66, 153, 225, 0.15), 0 5px 15px rgba(0, 0, 0, 0.25);
+        }
+
+        /* Revolution Studios inspired Navbar */
+        .navbar-top {
+            background-color: #1a202c; /* Main app background color */
+            border-bottom: 1px solid #2d3748; /* Slight border */
+            padding: 1rem 2.5rem; /* py-4 px-10 */
+        }
+        .navbar-link {
+            color: #a0aec0; /* app-text-gray-400 */
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            border-radius: 0.5rem;
+            transition: color 0.2s, background-color 0.2s;
+        }
+        .navbar-link:hover {
+            color: #f7fafc; /* app-text-gray-100 */
+            background-color: #2d3748; /* app-dark-blue-800 */
+        }
+        .navbar-button {
+            background-color: #4299e1; /* app-text-blue-600 */
+            color: white;
+            font-weight: 600;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            transition: background-color 0.2s;
+        }
+        .navbar-button:hover {
+            background-color: #3182ce;
+        }
+        /* Hide scrollbar */
         ::-webkit-scrollbar { width: 0 !important; }
-        html, body { height: 100%; }
+        html, body { height: 100%; overflow-x: hidden; } /* Ensure no horizontal scroll */
+        /* Icon sizing for Font Awesome */
+        .fa-icon-large {
+            font-size: 4rem; /* Equivalent to text-6xl */
+            color: #4299e1; /* A suitable icon color from your palette */
+        }
     </style>
 </head>
-<body class="gradient-bg min-h-screen min-w-full flex flex-col items-center justify-center relative overflow-x-hidden">
+<body class="landing-page-bg min-h-screen min-w-full flex flex-col items-center relative overflow-x-hidden">
+
+    <header class="w-full navbar-top flex justify-between items-center z-30">
+        <div class="flex items-center gap-4">
+            <img src="https://i.ibb.co/xqX4JDjN/logo.png" alt="TradeDeck Logo" class="h-10 w-10 object-contain" draggable="false">
+            <span class="text-3xl font-extrabold tracking-tight text-white" style="letter-spacing:-1px;">Trade<span class="text-blue-300">Deck</span></span>
+        </div>
+        <nav class="hidden md:flex items-center gap-6">
+            <a href="#how-it-works-section" class="navbar-link">How It Works</a>
+            <a href="#features-section" class="navbar-link">Features</a>
+            <button id="navbarSignInButton" class="navbar-button">Sign In / Register</button>
+        </nav>
+    </header>
 
     <div class="hero-blur"></div>
 
-    <!-- Main Fullscreen Hero Content -->
-    <main class="flex flex-col flex-1 items-center justify-center w-full h-screen relative z-10 fade-in">
-        <!-- Logo + TradeDeck Wordmark -->
-        <div class="select-none text-center mb-6 mt-0 flex flex-col items-center justify-center">
-            <div class="flex items-center justify-center gap-4">
-                <img src="https://i.ibb.co/xqX4JDjN/logo.png" alt="TradeDeck Logo" class="h-20 w-20 md:h-24 md:w-24 object-contain" draggable="false" style="user-select:none;">
-                <span class="text-7xl md:text-8xl font-extrabold tracking-tight text-white drop-shadow-2xl" style="letter-spacing:-2px;text-shadow:0 6px 32px #1e40af66,0 1px 0 #fff5;">Trade<span class="text-blue-300">Deck</span></span>
-            </div>
-        </div>
-        <div class="w-full max-w-2xl mx-auto text-center">
-            <p class="text-2xl md:text-3xl text-blue-50 font-semibold mb-8" style="text-shadow:0 2px 8px #1e40af55;">
-                A Trustworthy SCHOOL platform for <span class="text-white font-bold">buying</span> and <span class="text-white font-bold">selling</span> digital products.
+    <main id="hero-section" class="flex flex-col flex-1 items-center justify-center w-full h-screen relative z-10 fade-in px-4 text-center" style="background: url('YOUR_BACKGROUND_IMAGE_URL_HERE') no-repeat center center / cover;">
+        <div class="absolute inset-0 bg-black bg-opacity-50"></div>
+        <div class="relative z-10 max-w-4xl mx-auto py-20">
+            <h1 class="text-5xl md:text-7xl font-extrabold text-white mb-6 leading-tight" style="text-shadow: 0 4px 20px rgba(0,0,0,0.5);">
+                TradeDeck
+            </h1>
+            <p class="text-2xl md:text-4xl text-blue-200 font-semibold mb-8" style="text-shadow: 0 2px 10px rgba(0,0,0,0.4);">
+                SIMPLICITY IN DIGITAL TRANSACTIONS.
             </p>
             <button
                 id="heroGoogleSignInBtn"
-                class="bg-white hover:bg-blue-50 text-blue-700 hover:text-blue-900 font-bold px-10 py-4 rounded-2xl text-xl md:text-2xl btn-shadow shadow-lg transition focus:outline-none focus:ring-4 focus:ring-blue-200"
-                style="box-shadow:0 6px 32px #2563eb44;"
+                class="btn-primary px-12 py-5 rounded-full text-xl md:text-3xl font-extrabold transition transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-blue-300 focus:ring-opacity-75"
             >
                 Sign Up Today
             </button>
-            <div id="authStatus" class="text-blue-100 mt-6 text-lg min-h-[28px]"></div>
-        </div>
-        <!-- Features (floating at bottom of screen for a modern landing style) -->
-        <div class="absolute bottom-0 left-0 w-full pb-10 px-4 md:px-0 flex justify-center pointer-events-none z-20">
-            <div class="flex flex-col md:flex-row items-center justify-center gap-6 md:gap-16 w-full max-w-4xl">
-                <div class="flex flex-row items-center gap-3 pointer-events-auto card-hover px-4 py-2 bg-white/10 rounded-2xl shadow">
-                    <span class="text-3xl md:text-4xl">📁</span>
-                    <span class="text-blue-50 font-semibold text-lg md:text-xl">Upload & List</span>
-                </div>
-                <div class="flex flex-row items-center gap-3 pointer-events-auto card-hover px-4 py-2 bg-white/10 rounded-2xl shadow">
-                    <span class="text-3xl md:text-4xl">💸</span>
-                    <span class="text-blue-50 font-semibold text-lg md:text-xl">Instant Checkout</span>
-                </div>
-                <div class="flex flex-row items-center gap-3 pointer-events-auto card-hover px-4 py-2 bg-white/10 rounded-2xl shadow">
-                    <span class="text-3xl md:text-4xl">🔒</span>
-                    <span class="text-blue-50 font-semibold text-lg md:text-xl">Protected Access</span>
-                </div>
+            <div id="authStatus" class="app-text-gray-400 mt-8 text-lg md:text-xl font-medium min-h-[36px]">
+                Click 'Sign Up Today' to get started.
             </div>
         </div>
     </main>
 
-    <!-- Footer -->
-    <footer class="w-full text-center text-blue-100 font-medium absolute bottom-0 pb-3 z-30 select-none" style="text-shadow:0 1px 6px #1e40af44;">
+    <section id="how-it-works-section" class="w-full py-20 px-4 app-dark-blue-800 text-center relative z-20">
+        <div class="max-w-6xl mx-auto">
+            <h2 class="text-4xl md:text-5xl font-extrabold app-text-blue-600 mb-12">
+                How It Works
+            </h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
+                <div class="card-feature flex flex-col items-center p-8">
+                    <i class="fas fa-user-plus fa-icon-large mb-4"></i>
+                    <h3 class="text-2xl font-bold app-text-gray-100 mb-3">Create Account</h3>
+                    <p class="app-text-gray-400 text-lg">Sign up securely with Google in just a few clicks. No complex forms, just simplicity.</p>
+                </div>
+                <div class="card-feature flex flex-col items-center p-8">
+                    <i class="fas fa-cloud-upload-alt fa-icon-large mb-4"></i>
+                    <h3 class="text-2xl font-bold app-text-gray-100 mb-3">List Your Product</h3>
+                    <p class="app-text-gray-400 text-lg">Easily upload your digital goods: eBooks, software, templates, and more. Set your price and details.</p>
+                </div>
+                <div class="card-feature flex flex-col items-center p-8">
+                    <i class="fas fa-dollar-sign fa-icon-large mb-4"></i>
+                    <h3 class="text-2xl font-bold app-text-gray-100 mb-3">Start Earning</h3>
+                    <p class="app-text-gray-400 text-lg">Connect your PayPal and receive payments directly. Manage sales on your personal dashboard.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="features-section" class="w-full py-20 px-4 app-bg-dark text-center relative z-20">
+        <div class="max-w-6xl mx-auto">
+             <h2 class="text-4xl md:text-5xl font-extrabold app-text-blue-600 mb-12">
+                Why Choose TradeDeck?
+            </h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
+                <div class="card-feature flex flex-col items-center p-8">
+                    <i class="fas fa-box-open fa-icon-large mb-4"></i>
+                    <h3 class="text-2xl font-bold app-text-gray-100 mb-3">Wide Range</h3>
+                    <p class="app-text-gray-400 text-lg">From powerful software to stunning graphics, find or sell any digital asset.</p>
+                </div>
+                <div class="card-feature flex flex-col items-center p-8">
+                    <i class="fas fa-wallet fa-icon-large mb-4"></i>
+                    <h3 class="text-2xl font-bold app-text-gray-100 mb-3">Direct Payments</h3>
+                    <p class="app-text-gray-400 text-lg">Receive funds instantly into your PayPal account upon every successful sale.</p>
+                </div>
+                <div class="card-feature flex flex-col items-center p-8">
+                    <i class="fas fa-shield-alt fa-icon-large mb-4"></i>
+                    <h3 class="text-2xl font-bold app-text-gray-100 mb-3">Secure & Reliable</h3>
+                    <p class="app-text-gray-400 text-lg">Built with Firebase for robust security and seamless performance.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="w-full text-center app-text-gray-400 font-medium py-6 bg-gray-900 z-30 select-none">
         &copy; <span id="year"></span> TradeDeck. All rights reserved.
     </footer>
+
+    <script>
+        document.getElementById('navbarSignInButton').onclick = async () => {
+            document.getElementById('heroGoogleSignInBtn').click();
+        };
+    </script>
 </body>
 </html>
