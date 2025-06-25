@@ -9,8 +9,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
     <script src="https://cdn.tailwindcss.com"></script>
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha512-Fo3rlalDLuLwW1zH0+LwzQO/YlFpW4lS8x1pI/6+A4m4I4y6E5c6A1aV/j+G3p5+pM5y5+v+Q5+w5+Z5+x5+C5+z5+v5+Q==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-app.js";
         import { getAuth, GoogleAuthProvider, signInWithPopup, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-auth.js";
@@ -42,7 +40,7 @@
         // Elements
         const heroGoogleSignInBtn = document.getElementById('heroGoogleSignInBtn');
         const authStatus = document.getElementById('authStatus');
-        const HOME_URL = "https://933-ship-it.github.io/TradeDeck/"; 
+        const HOME_URL = "https://933-ship-it.github.io/TradeDeck/";
 
         function redirectToHome() {
             window.location.href = HOME_URL;
@@ -170,10 +168,12 @@
         /* Hide scrollbar */
         ::-webkit-scrollbar { width: 0 !important; }
         html, body { height: 100%; overflow-x: hidden; } /* Ensure no horizontal scroll */
-        /* Icon sizing for Font Awesome */
-        .fa-icon-large {
-            font-size: 4rem; /* Equivalent to text-6xl */
-            color: #4299e1; /* A suitable icon color from your palette */
+        /* Icon sizing for img elements */
+        .feature-icon-img {
+            width: 64px; /* Adjust as needed, equivalent to text-6xl for emojis */
+            height: 64px;
+            object-fit: contain;
+            filter: brightness(0) invert(1); /* Makes a colored icon white for dark background */
         }
     </style>
 </head>
@@ -221,17 +221,17 @@
             </h2>
             <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
                 <div class="card-feature flex flex-col items-center p-8">
-                    <i class="fas fa-user-plus fa-icon-large mb-4"></i>
+                    <img src="https://via.placeholder.com/64x64/4299e1/FFFFFF?text=👤" alt="Create Account Icon" class="feature-icon-img mb-4">
                     <h3 class="text-2xl font-bold app-text-gray-100 mb-3">Create Account</h3>
                     <p class="app-text-gray-400 text-lg">Sign up securely with Google in just a few clicks. No complex forms, just simplicity.</p>
                 </div>
                 <div class="card-feature flex flex-col items-center p-8">
-                    <i class="fas fa-cloud-upload-alt fa-icon-large mb-4"></i>
+                    <img src="https://via.placeholder.com/64x64/4299e1/FFFFFF?text=UPLOAD" alt="List Product Icon" class="feature-icon-img mb-4">
                     <h3 class="text-2xl font-bold app-text-gray-100 mb-3">List Your Product</h3>
                     <p class="app-text-gray-400 text-lg">Easily upload your digital goods: eBooks, software, templates, and more. Set your price and details.</p>
                 </div>
                 <div class="card-feature flex flex-col items-center p-8">
-                    <i class="fas fa-dollar-sign fa-icon-large mb-4"></i>
+                    <img src="https://via.placeholder.com/64x64/4299e1/FFFFFF?text=EARN" alt="Start Earning Icon" class="feature-icon-img mb-4">
                     <h3 class="text-2xl font-bold app-text-gray-100 mb-3">Start Earning</h3>
                     <p class="app-text-gray-400 text-lg">Connect your PayPal and receive payments directly. Manage sales on your personal dashboard.</p>
                 </div>
@@ -246,17 +246,17 @@
             </h2>
             <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
                 <div class="card-feature flex flex-col items-center p-8">
-                    <i class="fas fa-box-open fa-icon-large mb-4"></i>
+                    <img src="https://via.placeholder.com/64x64/4299e1/FFFFFF?text=BOX" alt="Wide Range Icon" class="feature-icon-img mb-4">
                     <h3 class="text-2xl font-bold app-text-gray-100 mb-3">Wide Range</h3>
                     <p class="app-text-gray-400 text-lg">From powerful software to stunning graphics, find or sell any digital asset.</p>
                 </div>
                 <div class="card-feature flex flex-col items-center p-8">
-                    <i class="fas fa-wallet fa-icon-large mb-4"></i>
+                    <img src="https://via.placeholder.com/64x64/4299e1/FFFFFF?text=PAY" alt="Direct Payments Icon" class="feature-icon-img mb-4">
                     <h3 class="text-2xl font-bold app-text-gray-100 mb-3">Direct Payments</h3>
                     <p class="app-text-gray-400 text-lg">Receive funds instantly into your PayPal account upon every successful sale.</p>
                 </div>
                 <div class="card-feature flex flex-col items-center p-8">
-                    <i class="fas fa-shield-alt fa-icon-large mb-4"></i>
+                    <img src="https://via.placeholder.com/64x64/4299e1/FFFFFF?text=SECURE" alt="Secure & Reliable Icon" class="feature-icon-img mb-4">
                     <h3 class="text-2xl font-bold app-text-gray-100 mb-3">Secure & Reliable</h3>
                     <p class="app-text-gray-400 text-lg">Built with Firebase for robust security and seamless performance.</p>
                 </div>
