@@ -175,30 +175,6 @@
             object-fit: contain;
             filter: brightness(0) invert(1); /* Makes a colored icon white for dark background */
         }
-        
-        /* Video background styles */
-        .video-background {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            z-index: 0;
-        }
-        .video-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.6);
-            z-index: 1;
-        }
-        .hero-content {
-            position: relative;
-            z-index: 2;
-        }
     </style>
 </head>
 <body class="landing-page-bg min-h-screen min-w-full flex flex-col items-center relative overflow-x-hidden">
@@ -217,33 +193,45 @@
 
     <div class="hero-blur"></div>
 
-    <main id="hero-section" class="flex flex-col flex-1 items-center justify-center w-full h-screen relative z-10 fade-in px-4 text-center overflow-hidden">
-        <!-- Video Background -->
-        <video autoplay muted loop playsinline class="video-background">
-            <source src="https://www.pexels.com/video/a-dark-background-with-purple-and-blue-lights-27439618/" type="video/mp4">
-            Your browser does not support the video tag.
-        </video>
-        <div class="video-overlay"></div>
-        
-        <div class="hero-content relative z-10 max-w-4xl mx-auto py-20">
-            <h1 class="text-5xl md:text-7xl font-extrabold text-white mb-6 leading-tight" style="text-shadow: 0 4px 20px rgba(0,0,0,0.5);">
-                TradeDeck
-            </h1>
-            <p class="text-2xl md:text-4xl text-blue-200 font-semibold mb-8" style="text-shadow: 0 2px 10px rgba(0,0,0,0.4);">
-                SIMPLICITY IN DIGITAL TRANSACTIONS.
-            </p>
-            <button
-                id="heroGoogleSignInBtn"
-                class="btn-primary px-12 py-5 rounded-full text-xl md:text-3xl font-extrabold transition transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-blue-300 focus:ring-opacity-75"
-            >
-                Sign Up Today
-            </button>
-            <div id="authStatus" class="app-text-gray-400 mt-8 text-lg md:text-xl font-medium min-h-[36px]">
-                Click 'Sign Up Today' to get started.
-            </div>
-        </div>
-    </main>
+   <main id="hero-section" class="flex flex-col flex-1 items-center justify-center w-full h-screen relative z-10 fade-in px-4 text-center">
+    <!-- Video background -->
+    <video id="heroBgVideo" autoplay muted loop playsinline class="absolute inset-0 w-full h-full object-cover z-0">
+        <source src="https://drive.google.com/uc?export=preview&id=1zcPn_VN5G55FOyk6E8rs5jzmYb26x2Vr" type="video/mp4" />
+        Your browser does not support the video tag.
+    </video>
 
+    <!-- Dark overlay -->
+    <div class="absolute inset-0 bg-black bg-opacity-50 z-10"></div>
+
+    <!-- Foreground content -->
+    <div class="relative z-20 max-w-4xl mx-auto py-20">
+        <h1 class="text-5xl md:text-7xl font-extrabold text-white mb-6 leading-tight" style="text-shadow: 0 4px 20px rgba(0,0,0,0.5);">
+            TradeDeck
+        </h1>
+        <p class="text-2xl md:text-4xl text-blue-200 font-semibold mb-8" style="text-shadow: 0 2px 10px rgba(0,0,0,0.4);">
+            SIMPLICITY IN DIGITAL TRANSACTIONS.
+        </p>
+        <button
+            id="heroGoogleSignInBtn"
+            class="btn-primary px-12 py-5 rounded-full text-xl md:text-3xl font-extrabold transition transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-blue-300 focus:ring-opacity-75"
+        >
+            Sign Up Today
+        </button>
+        <div id="authStatus" class="app-text-gray-400 mt-8 text-lg md:text-xl font-medium min-h-[36px]">
+            Click 'Sign Up Today' to get started.
+        </div>
+    </div>
+</main>
+
+<!-- Slow motion script -->
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        const video = document.getElementById("heroBgVideo");
+        if (video) {
+            video.playbackRate = 0.5; // Slow motion (50% speed)
+        }
+    });
+</script>
     <section id="how-it-works-section" class="w-full py-20 px-4 app-dark-blue-800 text-center relative z-20">
         <div class="max-w-6xl mx-auto">
             <h2 class="text-4xl md:text-5xl font-extrabold app-text-blue-600 mb-12">
@@ -302,17 +290,6 @@
         document.getElementById('navbarSignInButton').onclick = async () => {
             document.getElementById('heroGoogleSignInBtn').click();
         };
-        
-        // Ensure video plays on mobile devices
-        document.addEventListener('DOMContentLoaded', function() {
-            const video = document.querySelector('.video-background');
-            if (video) {
-                video.play().catch(error => {
-                    // Autoplay was prevented, show a play button or handle accordingly
-                    console.log('Video autoplay prevented:', error);
-                });
-            }
-        });
     </script>
 </body>
-</html>
+</html> 
