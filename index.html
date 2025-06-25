@@ -185,11 +185,14 @@
     <div class="hero-blur"></div>
 
    <main id="hero-section" class="flex flex-col flex-1 items-center justify-center w-full h-screen relative z-10 fade-in px-4 text-center">
-    <!-- Video background -->
-    <video id="heroBgVideo" autoplay muted loop playsinline class="absolute inset-0 w-full h-full object-cover z-0">
-        <source src="https://drive.google.com/uc?export=preview&id=1zcPn_VN5G55FOyk6E8rs5jzmYb26x2Vr" type="video/mp4" />
-        Your browser does not support the video tag.
-    </video>
+    <!-- Streamable iframe background -->
+    <iframe
+        src="https://streamable.com/e/ey1oec?loop=1&autoplay=1&muted=1"
+        class="absolute inset-0 w-full h-full object-cover z-0 pointer-events-none"
+        frameborder="0"
+        allow="autoplay; fullscreen"
+        allowfullscreen
+    ></iframe>
 
     <!-- Dark overlay -->
     <div class="absolute inset-0 bg-black bg-opacity-50 z-10"></div>
@@ -213,6 +216,7 @@
         </div>
     </div>
 </main>
+
 
 <!-- Slow motion script -->
 <script>
